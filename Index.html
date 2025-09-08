@@ -159,7 +159,7 @@
 
 
 // ------------------------------------ START OF EXPERIMENT TRIALS ------------------------------------//
-   
+   /*
 
 if (expType == 1){ 
 
@@ -225,7 +225,7 @@ if (expType == 1){
 
 
 /*-------------------- BEGINNING OF DEMOGRAPHIC INFO ----------------------------------------*/ 
-
+/*
 
   //Enter fullscreen
     var enter_fullscreen = {
@@ -267,7 +267,7 @@ if (expType == 1){
 
 
 /*----------------------------------Part 1: Flower Categorization------------------------------------ */
-
+/*
 
  // Flowers: numbers 0–3
 const numbers = [0, 1, 2, 3];
@@ -546,7 +546,7 @@ console.log(flower_stimuli);
 
 
 /* ---------------------------------- TASK 2: ASSOCIATION RATINGS ---------------------------------------- */
-
+/*
 
 //Create array of squares for block instructions screen
     var stimulusColor = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -903,8 +903,11 @@ let featureNumberIndex = [0,1,2]
       rating_stimuli_flower.push({stimulus: 
         `<div style="position:relative; font-size: 25px;">
             How helpful/important was this feature during Task 1?
-          <p><img src="img/flowers/feat`+featureNumber+`.png" style="width: 225px; height: auto;">`})
+          <p><img src="img/flowers/feat`+featureNumber+`.png" style="width: 225px; height: auto;">`,
+          colorNumber: featureNumber,
+          targetName: petalNames[featureNumber]})
       }
+
 
   //Association rating trial
     var featRate =  {
@@ -922,7 +925,9 @@ let featureNumberIndex = [0,1,2]
       feedbackTrial: 0, 
       data: {
         task: "feature rating trial",
-      }
+        colorNumber: jsPsych.timelineVariable('colorNumber'),
+        targetName: jsPsych.timelineVariable('targetName')
+        }
     }
 
  

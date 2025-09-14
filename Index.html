@@ -34,7 +34,7 @@
 // ---------- UPDATE THESE AS NEEDED------------------//
 
     //General experiment info to update
-    console.log("Updated last: 9/8-v2")
+    console.log("Updated last: 9/14")
 
     var expServer = 1 // 0 = testing mode; 1 = on server 
         console.log("serverMode", expServer)
@@ -45,7 +45,7 @@
   
     var expTime = 30; // How long experiment will take in minutes
     var experimenterName = "mschoenl@highpoint.edu"  //Update to your contact info. this is presented if an error arises for a participantd
-    var numConditions = 1; //Number of conditions. 
+    var numConditions = 3; //Number of conditions. 
     var numTasks = 3;  //Number of experimental tasks (add 1 to include Color vision test)
 
     //CloudResearch completion code 
@@ -108,7 +108,7 @@
             return  Math.floor(Math.random() * (max - min + 1));
         }
     assigned_condition = getRandomIntInclusive(0,numConditions-1);
-    var whichCondition = 0 ; //assigned_condition; 
+    var whichCondition = 1; //assigned_condition; 
       console.log("whichCondition: ", whichCondition)
 
     // Get Start time
@@ -152,7 +152,7 @@
 
      var preload = {
         type: jsPsychPreload,
-        images: ['img/flowers/allFlowers.png', 'img/flowers/flower0.png', 'img/flowers/flower1.png', 'img/flowers/flower2.png', 'img/flowers/flower3.png',
+        images: ['img/flowers/condition'+whichCondition+'/allFlowers.png', 'img/flowers/condition'+whichCondition+'/flower0.png', 'img/flowers/condition'+whichCondition+'/flower1.png', 'img/flowers/condition'+whichCondition+'/flower2.png', 'img/flowers/condition'+whichCondition+'/flower3.png',
                 'img/flowers/featInstr.png', 'img/flowers/feat0.png', 'img/flowers/feat1.png', 'img/flowers/feat2.png' ]
     };
     timeline.push(preload);
@@ -299,7 +299,7 @@ console.log("Number-to-Letter Mapping:", mapping);
            <div>`+mapping[2]+`</div>
            <div>`+mapping[3]+`</div>
           </div>
-          <img src="img/flowers/allFlowers.png" style="width: 400px; left: 0px; height: auto"></div>
+          <img src="img/flowers/condition`+whichCondition+`/allFlowers.png" style="width: 400px; left: 0px; height: auto"></div>
 
          A species name will appear on the screen and two flowers below, one on the left and on on the right.
          <br>If you think the flower on the left is that species of flower, press the left arrow key. 
@@ -354,14 +354,14 @@ const flower_stimuli = sequences.map((seq, index) => {
   if (targetStimuli === leftStimuli) {
     targetSide = "left";
     correctResponse = "ArrowLeft";
-    leftFile = "img/flowers/flower"+targetStimuli+".png"
-    rightFile = "img/flowers/flower"+rightStimuli+".png"
+    leftFile = "img/flowers/condition"+whichCondition+"/flower"+targetStimuli+".png"
+    rightFile = "img/flowers/condition"+whichCondition+"/flower"+rightStimuli+".png"
 
   } else if (targetStimuli === rightStimuli) {
     targetSide = "right";
     correctResponse = "ArrowRight";
-     leftFile = "img/flowers/flower"+leftStimuli+".png"
-     rightFile = "img/flowers/flower"+targetStimuli+".png"
+     leftFile = "img/flowers/condition"+whichCondition+"/flower"+leftStimuli+".png"
+     rightFile = "img/flowers/condition"+whichCondition+"/flower"+targetStimuli+".png"
   }
   // Find distractor: whichever is not equal to targetStimuli
   const distractorStimuli = leftStimuli === targetStimuli ? rightStimuli : leftStimuli;
@@ -671,7 +671,7 @@ let colorSpecies;
             <div style="width:100px;height:100px; position: relative; left: 250px; top: -50px; background-color:rgb(`+promptedColorR1[colorNumber]+`,`+promptedColorG1[colorNumber]+`,`+promptedColorB1[colorNumber]+`);"></div>`,
             colorSeq: colorSeq,
             colorNumber: colorNumber,
-            species: "Mund",
+            species: "Gork",
             colorSpecies: colorSpecies
       })
     }
@@ -687,7 +687,7 @@ let colorSpecies;
             <div style="width:100px;height:100px; position: relative; left: 250px; top: -50px; background-color:rgb(`+promptedColorR1[colorNumber]+`,`+promptedColorG1[colorNumber]+`,`+promptedColorB1[colorNumber]+`);"></div>`,
             colorSeq: colorSeq,
             colorNumber: colorNumber,
-            species: "Mund",
+            species: "Lemz",
             colorSpecies: colorSpecies
       })
     }
@@ -714,13 +714,7 @@ let colorSpecies;
     var squareRate =  {
       type: jsPsychHtmlSliderResponse,    
       stimulus: jsPsych.timelineVariable('stimulus'),
-      //stimulus: [promptedColorR1[whichColorSquareCat], promptedColorG1[whichColorSquareCat], promptedColorB1[whichColorSquareCat]],
       labels: [`<div style="font-size: 20px;">Not at<br>all</div>`, `<div style="font-size: 20px;">Very<br>much</div>`],
-     // prompt:  `  <div style="position: relative; width: 400px; height: 18px;top: -122px; margin: 10px auto;">
-        // <div style="position:absolute; left:2px; width:5px; height:20px; top: 0px; background:black;"></div>
-        // <div style="position:absolute; left:50%; transform: translateX(-50%); width:5px; height:20px; top:0px; background:black;"></div>
-        // <div style="position:absolute; right:-2px; width:5px; height:20px; top: 0px;  background:black;"></div>
-        // </div>`
       min: -200,
       max: 200, 
       slider_width: 400, 

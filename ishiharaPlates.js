@@ -21,17 +21,26 @@ function ishiharaPlates() {
 // to ensure that they really did get it correct/incorrect given what they typed. they could, for example, type the word "FIVE", rather than
 // input the number "5", which would be coded as incorrect per the "correct" column in the data table. 
 
+   var preload = {
+        type: jsPsychPreload,
+        images: ['ishiharaPlateImg/ishihara-0.png', 'ishiharaPlateImg/ishihara-1.png', 'ishiharaPlateImg/ishihara-2.png', 'ishiharaPlateImg/ishihara-3.png', 'ishiharaPlateImg/ishihara-4.png', 
+            'ishiharaPlateImg/ishihara-5.png', 'ishiharaPlateImg/ishihara-6.png', 'ishiharaPlateImg/ishihara-7.png', 'ishiharaPlateImg/ishihara-8.png', 'ishiharaPlateImg/ishihara-9.png','ishiharaPlateImg/ishihara-10.png'  
+        ]
+    };
+    timeline.push(preload);
+
 // Ishihara color vision check //
 var ishihara_instructions = {
-    type: "html-keyboard-response",
+    type: jsPsychHtmlKeyboardResponse,
         stimulus: 
+        "<strong>Final task</strong>" +
         "<p>Next, you will see an image on the screen." +
         "<br>If you see a number in the image, please carefully type that number in the box.</p>"+
         "<p>If you do not see a number in the image, please type 'None' in the box."+
-        "<br>This part of the experiment will take about 2 minutes.</p>"+
+        "<br>This task will take about 1 minute to complete.</p>"+
         "<p>Please press the spacebar to begin.</p>",
         post_trial_gap: 500,
-        choices: [32]
+        choices: [" "]
     };
     timeline.push(ishihara_instructions);
 
@@ -85,28 +94,48 @@ var ishihara_instructions = {
         //Check to ensure this plate not previously presented
         if (plateCounter[whichPlate] == 0) {
 
+               //Fixation trial
+                var fixation = {
+                    type: jsPsychHtmlKeyboardResponse,
+                    stimulus: '<div style="font-size:60px;">+</div>',
+                    choices: "NO_KEYS",
+                    trial_duration: 500, 
+                    data: {
+                        task: 'fixation'
+                    }
+                };
+                timeline.push(fixation)
+
+
             //Present trial
             var ishihara_plate = {
-                type: 'image-text-responseMAS',
-                stimulus: "ishiharaPlateImg/ishihara-"+whichPlate+".png", 
-                stimulus_height: 400, 
-                correctAnswer: answer,
-                on_start: function(trial) {
-                    correctAnswer = trial.correctAnswer}, //recorded in the "prompt" column of the output
+                type: jsPsychSurveyText,
+                preamble: `<img src= "ishiharaPlateImg/ishihara-`+whichPlate+`.png" style="width:400px;"></img>`,
+                questions: [
+                    {prompt: 'Carefully type any number you see (e.g., 50) or type "none".'}, 
+                ],
+               correctAnswer: answer,
                 questions: [
                     { prompt: "Carefully type what number you see. "+
                         "<p>If you do not see a number, type 'None'.",
                     rows: 1, 
-                    columns: 1,
+                    columns: 3,
                     required: true,
                     name: 'ishihara'}],
-                    button_label: "Next",
-                    on_finish: function(data){
-                            if(data.responses == correctAnswer){
-                                data.correct = 1;  //correct
-                            } else {
-                                data.correct = 0;}} //incorrect
-                    }         
+                button_label: "Next",
+                on_start: function(trial) {
+                    correctAnswer = trial.correctAnswer}, //recorded in the "prompt" column of the output
+                on_finish: function(data){
+                    if(data.responses == correctAnswer){
+                        data.correct = 1;  //correct
+                    } else {
+                        data.correct = 0;}}, //incorrect
+                data: {
+                    task: "ishihara",
+                    answer: answer
+                }
+                }       
+
             timeline.push(ishihara_plate) 
             plateCounter[whichPlate] = 1; 
             plateNum++
@@ -114,9 +143,9 @@ var ishihara_instructions = {
     }
 
 
-    // Color Vision check //
+    //Color Vision check //
     var colorvision = {
-        type: 'survey-multi-choice',
+        type: jsPsychSurveyMultiChoice,
         questions: [
             {prompt: "Do you have difficulty seeing colors or noticing differences<br>between colors compared to the average person?",
             options: ["Yes", "No"],

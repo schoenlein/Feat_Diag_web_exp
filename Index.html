@@ -34,7 +34,7 @@
 // ---------- UPDATE THESE AS NEEDED------------------//
 
     //General experiment info to update
-    console.log("Updated last: 3/23-v1")
+    console.log("Updated last: 3/27-v1")
 
     var expServer = 1 // 0 = testing mode; 1 = on server 
         console.log("serverMode", expServer)
@@ -155,12 +155,11 @@
 
      var preload = {
         type: jsPsychPreload,
-        images: ['img/flowers/condition'+whichCondition+'/flower0.png', 'img/flowers/condition'+whichCondition+'/flower1.png', 'img/flowers/condition'+whichCondition+'/flower2.png', 'img/flowers/condition'+whichCondition+'/flower3.png',
+        images: ['img/flowers/condition'+whichCondition+'/allFlowers.png', 'img/flowers/condition'+whichCondition+'/flower0.png', 'img/flowers/condition'+whichCondition+'/flower1.png', 'img/flowers/condition'+whichCondition+'/flower2.png', 'img/flowers/condition'+whichCondition+'/flower3.png',
                 'img/flowers/featInstr.png', 'img/flowers/feat0.png', 'img/flowers/feat1.png', 'img/flowers/feat2.png' ]
     };
     timeline.push(preload);
 
-    //'img/flowers/condition'+whichCondition+'/allFlowers.png', 
 
 // ------------------------------------ START OF EXPERIMENT TRIALS ------------------------------------//
    
@@ -275,7 +274,7 @@ if (expType == 1){
 
 /*-------------------- BEGINNING OF DEMOGRAPHIC INFO ----------------------------------------*/ 
 
-/*
+
   //Enter fullscreen
     var enter_fullscreen = {
       type: jsPsychFullscreen,
@@ -348,7 +347,7 @@ console.log("Number-to-Letter Mapping:", mapping);
            <div>`+mapping[2]+`</div>
            <div>`+mapping[3]+`</div>
           </div>
-          <img src="img/flowers/condition`+whichCondition+`/allFlowers.png" style="width: 400px; left: 0px; height: auto"></div>
+          <img src="img/flowers/condition`+whichCondition+`/allFlowers.png" style="width: 405px; left: 0px; height: auto"></div>
 
          A species name will appear on the screen and two flowers below, one on the left and on on the right.
          <br>If you think the flower on the left is that species of flower, press the left arrow key. 

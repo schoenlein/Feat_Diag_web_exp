@@ -34,7 +34,7 @@
 // ---------- UPDATE THESE AS NEEDED------------------//
 
     //General experiment info to update
-    console.log("Updated last: 5/26-v1")
+    console.log("Updated last: 9/17-v1")
 
     var expServer = 1 // 0 = testing mode; 1 = on server 
         console.log("serverMode", expServer)
@@ -43,7 +43,7 @@
         console.log("consent:", expType)
 
   
-    var expTime = 23; // How long experiment will take in minutes
+    var expTime = 30; // How long experiment will take in minutes
     var experimenterName = "mschoenl@highpoint.edu"  //Update to your contact info. this is presented if an error arises for a participantd
     var numConditions = 6; //Number of conditions. 
     var numTasks = 4;  //Number of experimental tasks (add 1 to include Color vision test)
@@ -110,7 +110,9 @@
             max = Math.floor(max);
             return  Math.floor(Math.random() * (max - min + 1));
         }
-    assigned_condition = getRandomIntInclusive(0,numConditions-1);
+    //assigned_condition = getRandomIntInclusive(0,numConditions-1);
+    assigned_condition = getRandomIntInclusive(0, 1) * 4;   //MELISSA
+
     var whichCondition = assigned_condition; 
       console.log("whichCondition: ", whichCondition)
 
@@ -317,6 +319,7 @@ if (expType == 1){
 /*----------------------------------Part 1: Flower Categorization------------------------------------ */
 
 
+
  // Flowers: numbers 0–3
 const numbers = [0, 1, 2, 3];
 
@@ -467,6 +470,7 @@ console.log(flower_stimuli);
         }
       }
 
+      
     //flower feedback trial  
      var feedFlower = {
       type: jsPsychImageKeyboardResponseMAS2images,

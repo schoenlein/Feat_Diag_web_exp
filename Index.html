@@ -34,7 +34,7 @@
 // ---------- UPDATE THESE AS NEEDED------------------//
 
     //General experiment info to update
-    console.log("Updated last: 9/17-v1")
+    console.log("Updated last: 9/22-v1")
 
     var expServer = 1 // 0 = testing mode; 1 = on server 
         console.log("serverMode", expServer)
@@ -110,10 +110,9 @@
             max = Math.floor(max);
             return  Math.floor(Math.random() * (max - min + 1));
         }
-    //assigned_condition = getRandomIntInclusive(0,numConditions-1);
-    assigned_condition = getRandomIntInclusive(0, 1) * 4;   //MELISSA
+    assigned_condition = getRandomIntInclusive(0,numConditions-1);
 
-    var whichCondition = assigned_condition; 
+    var whichCondition = 0; //assigned_condition; 
       console.log("whichCondition: ", whichCondition)
 
     // Get Start time

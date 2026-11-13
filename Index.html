@@ -34,13 +34,15 @@
 // ---------- UPDATE THESE AS NEEDED------------------//
 
     //General experiment info to update
-    console.log("Updated last: 11/13-v3")
+    console.log("Updated last: 11/13-v4")
 
     var expServer = 1 // 0 = testing mode; 1 = on server 
         console.log("serverMode", expServer)
 
     var expType = 2 // 0 = SONA in-lab version; 1 = sona ONLINE ; 2 = CloudResearch online version (relevant for consent & debriefing)
         console.log("consent:", expType)
+
+    var expName = "FeatDiag-exp2"
 
   
     var expTime = 30; // How long experiment will take in minutes
@@ -86,7 +88,8 @@
             data.condition = whichCondition;
             data.workerID = workerID;
             data.startTime = start_time;
-          }
+            data.expName = expName;
+                      }
       },
       on_finish: function() {
         if (expServer == 0){
@@ -341,6 +344,7 @@ numbers.forEach((num, i) => {
 
 
 
+
   //     <div style='display: flex; justify-content: space-between; width: 530px; margin: 10px auto; font-size: 20px;'></div>
 
 // Categorization Instructions 
@@ -475,7 +479,12 @@ const flower_stimuli = sequences.map((seq, index) => {
     imageFile,
     leftLabel,
     rightLabel,
-    prompt
+    targetL,
+    prompt, 
+    mappingA: mapping[0],
+    mappingB: mapping[1],
+    mappingC: mapping[2],
+    mappingD: mapping[3]
     };
   });
 
@@ -502,9 +511,13 @@ const flower_stimuli = sequences.map((seq, index) => {
             targetName: jsPsych.timelineVariable('targetName')  ,
             leftLabel: jsPsych.timelineVariable('leftLabel'),
             rightLabel: jsPsych.timelineVariable('rightLabel'),
-            image:  jsPsych.timelineVariable('imageFile')
-
-        }
+            image:  jsPsych.timelineVariable('imageFile'), 
+            imageLetter: jsPsych.timelineVariable('targetL'),
+            mappingA:  jsPsych.timelineVariable('mappingA'),
+            mappingB: jsPsych.timelineVariable('mappingB'),
+            mappingC: jsPsych.timelineVariable('mappingC'),
+            mappingD: jsPsych.timelineVariable('mappingD')
+          }
       }
 
       
@@ -551,8 +564,12 @@ const flower_stimuli = sequences.map((seq, index) => {
         targetName: jsPsych.timelineVariable('targetName')  ,
         leftLabel: jsPsych.timelineVariable('leftLabel'),
         rightLabel: jsPsych.timelineVariable('rightLabel'),
-        image:  jsPsych.timelineVariable('imageFile')
-
+        image:  jsPsych.timelineVariable('imageFile'),
+        imageLetter: jsPsych.timelineVariable('targetL'),
+         mappingA:  jsPsych.timelineVariable('mappingA'),
+            mappingB: jsPsych.timelineVariable('mappingB'),
+            mappingC: jsPsych.timelineVariable('mappingC'),
+            mappingD: jsPsych.timelineVariable('mappingD')
       }
     };
 
@@ -723,7 +740,11 @@ for (let currentSpecies of species) {
          <div style=" position: relative; top: -50px; left: 0px; text-align: center; color:rgb(105,105,105); font-size: 25px;">---<br>---<br>--</div>`,
      targetName: targetName,
     correctResponse: targetResponse,
-    imageFile: "img/robots/Robot_S"+whichCondition+""+letter+".png"
+    imageFile: "img/robots/Robot_S"+whichCondition+""+letter+".png",
+        mappingA: mapping[0],
+    mappingB: mapping[1],
+    mappingC: mapping[2],
+    mappingD: mapping[3]
     });
   }
   
@@ -748,7 +769,11 @@ for (let currentSpecies of species) {
             task: '4 robot sorting',
             correctResponse: jsPsych.timelineVariable('correctResponse'),
             targetName: jsPsych.timelineVariable('targetName')  ,
-            imageFile:  jsPsych.timelineVariable('imageFile')
+            image:  jsPsych.timelineVariable('imageFile'),
+            mappingA:  jsPsych.timelineVariable('mappingA'),
+            mappingB: jsPsych.timelineVariable('mappingB'),
+            mappingC: jsPsych.timelineVariable('mappingC'),
+            mappingD: jsPsych.timelineVariable('mappingD')
 
         }
       }
@@ -800,7 +825,7 @@ for (let currentSpecies of species) {
       data: {
         task: '4robot feedback',
         targetName: jsPsych.timelineVariable('targetName')  ,
-        imageFile:  jsPsych.timelineVariable('imageFile')
+        image:  jsPsych.timelineVariable('imageFile')
 
       }
     };
@@ -969,7 +994,8 @@ let colorSpecies;
             colorSeq: colorSeq,
             colorNumber: colorNumber,
             species: "Blit",
-            colorSpecies: colorSpecies
+            colorSpecies: colorSpecies,
+            mapping: mapping
       })
     }
 
@@ -985,7 +1011,8 @@ let colorSpecies;
             colorSeq: colorSeq,
             colorNumber: colorNumber,
             species: "Gork",
-            colorSpecies: colorSpecies
+            colorSpecies: colorSpecies, 
+            mapping: mapping
       })
     }
 
@@ -1001,7 +1028,8 @@ let colorSpecies;
             colorSeq: colorSeq,
             colorNumber: colorNumber,
             species: "Lemz",
-            colorSpecies: colorSpecies
+            colorSpecies: colorSpecies,
+            mapping: mapping
       })
     }
 
@@ -1018,7 +1046,8 @@ let colorSpecies;
             colorSeq: colorSeq,
             colorNumber: colorNumber,
             species: "Mund",
-            colorSpecies: colorSpecies
+            colorSpecies: colorSpecies, 
+            mapping: mapping
       })
     }
 
@@ -1041,7 +1070,11 @@ let colorSpecies;
         colorSeq: jsPsych.timelineVariable('colorSeq'),
         colorNumber: jsPsych.timelineVariable('colorNumber'),
         targetName: jsPsych.timelineVariable('species'),
-        colorSpecies: jsPsych.timelineVariable('colorSpecies')
+        colorSpecies: jsPsych.timelineVariable('colorSpecies'),
+        mappingA:  jsPsych.timelineVariable('mappingA'),
+            mappingB: jsPsych.timelineVariable('mappingB'),
+            mappingC: jsPsych.timelineVariable('mappingC'),
+            mappingD: jsPsych.timelineVariable('mappingD')
       }
     }
 

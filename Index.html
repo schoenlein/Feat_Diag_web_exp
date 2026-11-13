@@ -34,7 +34,7 @@
 // ---------- UPDATE THESE AS NEEDED------------------//
 
     //General experiment info to update
-    console.log("Updated last: 11/13/v2")
+    console.log("Updated last: 11/13-v3")
 
     var expServer = 1 // 0 = testing mode; 1 = on server 
         console.log("serverMode", expServer)
@@ -339,7 +339,6 @@ numbers.forEach((num, i) => {
   mapping[num] = shuffledLetters[i];
 });
 
-console.log("Number-to-Letter Mapping:", mapping);
 
 
   //     <div style='display: flex; justify-content: space-between; width: 530px; margin: 10px auto; font-size: 20px;'></div>
@@ -691,7 +690,6 @@ const flower_stimuli = sequences.map((seq, index) => {
       },
     }
 
-console.log(robotMapping)
 
    
 let flower_stimuli2 = [];
@@ -711,10 +709,7 @@ for (let currentSpecies of species) {
       letter = "D"
     }
 
-    console.log(letterList)
-    console.log("currentspecies", currentSpecies)
-    console.log("targetName", targetName)
-    console.log("letter", letter)
+  
 
   flower_stimuli2.push({
   prompt: `<div style="position: relative; top: -250px; left: 0; text-align: center;">

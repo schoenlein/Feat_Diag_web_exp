@@ -34,7 +34,7 @@
 // ---------- UPDATE THESE AS NEEDED------------------//
 
     //General experiment info to update
-    console.log("Updated last: 9/22-v1")
+    console.log("Updated last: 11/13/v1")
 
     var expServer = 1 // 0 = testing mode; 1 = on server 
         console.log("serverMode", expServer)
@@ -46,7 +46,7 @@
     var expTime = 30; // How long experiment will take in minutes
     var experimenterName = "mschoenl@highpoint.edu"  //Update to your contact info. this is presented if an error arises for a participantd
     var numConditions = 6; //Number of conditions. 
-    var numTasks = 4;  //Number of experimental tasks (add 1 to include Color vision test)
+    var numTasks = 5;  //Number of experimental tasks (add 1 to include Color vision test)
 
     //CloudResearch completion code 
     var completion_code = "1DD48A672F";  //Code copied from mTurk Cloud Research Fixed completion code
@@ -112,7 +112,7 @@
         }
     assigned_condition = getRandomIntInclusive(0,numConditions-1);
 
-    var whichCondition = 0; //assigned_condition; 
+    var whichCondition = assigned_condition; 
       console.log("whichCondition: ", whichCondition)
 
     // Get Start time
@@ -156,8 +156,15 @@
 
      var preload = {
         type: jsPsychPreload,
-        images: ['img/flowers/condition'+whichCondition+'/allFlowers.png', 'img/flowers/condition'+whichCondition+'/flower0.png', 'img/flowers/condition'+whichCondition+'/flower1.png', 'img/flowers/condition'+whichCondition+'/flower2.png', 'img/flowers/condition'+whichCondition+'/flower3.png',
-                'img/flowers/featInstr.png', 'img/flowers/feat0.png', 'img/flowers/feat1.png', 'img/flowers/feat2.png' ]
+        images: ['img/robots/Robot_S'+whichCondition+'A.png',
+                'img/robots/Robot_S'+whichCondition+'B.png',
+                'img/robots/Robot_S'+whichCondition+'C.png',
+                'img/robots/Robot_S'+whichCondition+'D.png',
+                'img/RobotSets/All_Robots'+whichCondition+'.png',
+                'img/TaskSilhouettes/Task3All.png',
+                 'img/TaskSilhouettes/Task3Arms.png',
+                'img/TaskSilhouettes/Task3Body.png',
+                'img/TaskSilhouettes/Task3Legs.png']
     };
     timeline.push(preload);
 
@@ -165,7 +172,7 @@
 // ------------------------------------ START OF EXPERIMENT TRIALS ------------------------------------//
    
 
-if (expType == 1){ 
+if (expType == 0){ 
 
 //Booth trial
 var booth_trial = {
@@ -315,11 +322,11 @@ if (expType == 1){
 
 
 
-/*----------------------------------Part 1: Flower Categorization------------------------------------ */
+/*----------------------------------Part 1A: Robot Categorization------------------------------------ */
 
 
 
- // Flowers: numbers 0–3
+ // Robots: numbers 0–3
 const numbers = [0, 1, 2, 3];
 
 // Letters to assign randomly
@@ -335,28 +342,38 @@ numbers.forEach((num, i) => {
 console.log("Number-to-Letter Mapping:", mapping);
 
 
+  //     <div style='display: flex; justify-content: space-between; width: 530px; margin: 10px auto; font-size: 20px;'></div>
+
 // Categorization Instructions 
     var cat_instructions = {
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<br><strong>Task 1 of 3</strong></br>
-        <p>You have traveled to the alien planet Sparl where the scientists have just discovered 4 new flower species.
-        <br>Your job, as the research assistant, is to sort the flowers into their 4 different flower species, as shown below.
-        <br>The flowers have slightly different features. Your task is to learn how to identify each flower species based on their features.
+        stimulus: `<br><strong>Task 1 of `+numTasks+`</strong></br>
+        <p>You have traveled to the futuristic planet Sparl where the scientists have just discovered 4 new robot species.
+        <br>Your job, as the research assistant, is to sort the robots into their 4 different species, as shown below.
+        <br>The robots have slightly different features. Your task is to learn how to identify each robot species based on their features.
          
-        <div style='display: flex; justify-content: space-between; width: 360px; margin: 10px auto; font-size: 20px;'>
-         <div> `+mapping[0]+`</div>
-          <div>`+mapping[1]+`</div>
-           <div>`+mapping[2]+`</div>
-           <div>`+mapping[3]+`</div>
+          <div style="
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr 1fr;
+                  width: 50%;
+                  column-gap: 90px;
+                  text-align: center;
+                  margin-top: 0px;
+                  position: relative;
+                  left: 260px;">
+           <p style="font-size: 25px;">`+mapping[0]+`</p>
+           <p style="font-size: 25px;">`+mapping[1]+`</p>
+            <p style="font-size: 25px;">`+mapping[2]+`</p>
+            <p style="font-size: 25px;">`+mapping[3]+`</p></div>
           </div>
-          <img src="img/flowers/condition`+whichCondition+`/allFlowers.png" style="width: 405px; left: 0px; height: auto"></div>
-
-         A species name will appear on the screen and two flowers below, one on the left and on on the right.
-         <br>If you think the flower on the left is that species of flower, press the left arrow key. 
-        <br>If you think the flower on the right is that species of flower, press the right arrow key.
-        <p>After you respond, you will be told the correct answer and the incorrect flower will disappear.
+          <div><img src="img/RobotSets/All_Robots`+whichCondition+`.png" style="width: 585px; left: 0px; height: auto"></div>
+ 
+         Two species names will appear on the screen and one robot centered below.
+         <br>If you think the name on the left describes that species of robot, press the left arrow key. 
+        <br>If you think the name on the right describes that species of robot, press the right arrow key.
+        <p>After you respond, you will be told the correct answer and the robot will move below its species name.
         <br>There will then be a brief pause and the next trial will begin.</p>
-        <p>At first, you may feel like you are guessing, but as you see more flowers, you may begin to feel more confident in your responses.
+        <p>At first, you may feel like you are guessing, but as you see more robots, you may begin to feel more confident in your responses.
         <br>There will be 4 blocks of trials for this task. At the end of each block, you will get to see your accuracy from that block.
         <br>This part of the experiment will take about 10 minutes.
         <br>When you are ready, press the spacebar to begin. </p>`,
@@ -370,6 +387,9 @@ console.log("Number-to-Letter Mapping:", mapping);
     timeline.push(cat_instructions); 
 
 
+
+    
+    
 // Build all pairs and sequences
    var numTotalTrialsFlowers = 96;
 
@@ -392,68 +412,84 @@ pairs.forEach(([a, b]) => {
 const flower_stimuli = sequences.map((seq, index) => {
   const [targetStimuli, leftStimuli, rightStimuli] = seq;
 
-  let targetSide = null;
-  let correctResponse = null;
-  let leftFile = null; 
-  let rightFile = null;
-  let prompt = null; 
-  let feedbackText = null; 
+    let targetSide = null;
+    let correctResponse = null;
+    let leftFile = null; 
+    let rightFile = null;
+    let prompt = null; 
+    let feedbackText = null; 
 
-  if (targetStimuli === leftStimuli) {
-    targetSide = "left";
-    correctResponse = "ArrowLeft";
-    leftFile = "img/flowers/condition"+whichCondition+"/flower"+targetStimuli+".png"
-    rightFile = "img/flowers/condition"+whichCondition+"/flower"+rightStimuli+".png"
+    let targetLetters = ["A", "B", "C", "D"]
+    targetL = targetLetters[targetStimuli]
 
-  } else if (targetStimuli === rightStimuli) {
-    targetSide = "right";
-    correctResponse = "ArrowRight";
-     leftFile = "img/flowers/condition"+whichCondition+"/flower"+leftStimuli+".png"
-     rightFile = "img/flowers/condition"+whichCondition+"/flower"+targetStimuli+".png"
-  }
-  // Find distractor: whichever is not equal to targetStimuli
-  const distractorStimuli = leftStimuli === targetStimuli ? rightStimuli : leftStimuli;
-  const distractorStimuliName = mapping[distractorStimuli];
+
+
+    //target name on left
+    if (targetStimuli === leftStimuli) {
+      targetSide = "left";
+      correctResponse = "ArrowLeft";
+      imageFile = "img/robots/Robot_S"+whichCondition+""+targetL+".png"
+      targetName = mapping[targetStimuli]
+
+    //target name on right
+    } else if (targetStimuli === rightStimuli) {
+      targetSide = "right";
+      correctResponse = "ArrowRight";
+      imageFile = "img/robots/Robot_S"+whichCondition+""+targetL+".png"
+      targetName = mapping[targetStimuli]
+
+    }
+
+
+      var distractorOptions = Object.keys(mapping).filter(key => key != targetStimuli);
+      var distractorKey = distractorOptions[Math.floor(Math.random() * distractorOptions.length)];
+      distractorName  = mapping[distractorKey];
+
+      //create distractor name
+      names = [targetName, distractorName]
+      sNames = shuffle(names)
+
+      leftLabel = sNames[0]; 
+      rightLabel = sNames[1]; 
+
+      if (leftLabel === targetName) {
+        correctResponse = "ArrowLeft";
+      } else if (rightLabel === targetName) {
+          correctResponse = "ArrowRight";
+      }
+
   
-  prompt = `<div style="position: relative; top: -300px; left: 0; text-align: center;">
-          <p style="font-size: 25px;">Which flower is a <br><br><strong>`+mapping[targetStimuli]+`</strong>?<p>Press the left or right arrow key</p>
-          <div style="display: flex; gap: 500px; margin-top: 60px;">
+  prompt = `<div style="position: relative; top: -200px; left: 0; text-align: center;">
+           <p style="font-size: 25px;">Which type of robot is this?<p>Press the left or right arrow key.</p>
+            <div style="display: flex; gap: 350px; margin-top: 0px;">
+            <p style="font-size: 30px;">`+leftLabel+`</p>
+            <p style="font-size: 30px;">`+rightLabel+`</p></div>
              </div></div>
-         <div style=" position: relative; top: -200px; left: 0px; text-align: center; color:rgb(105,105,105); font-size: 25px;">---<br>---<br>--</div>`;
+         <div style=" position: relative; top: -250px; left: 0px; text-align: center; color:rgb(105,105,105); font-size: 25px;">---<br>---<br>--</div>`;
 
   return {
     targetStimuli,
     leftStimuli,
-    rightStimuli,
     targetSide,
     correctResponse,
-    targetStimuliName: mapping[targetStimuli],
-    leftStimuliName: mapping[leftStimuli],
-    rightStimuliName: mapping[rightStimuli],
-    distractorStimuli,
-    distractorStimuliName,
-    leftFile,
-    rightFile,
+    targetName,
+    imageFile,
+    leftLabel,
+    rightLabel,
     prompt
     };
   });
 
-console.log(flower_stimuli);
 
 
   
    
   //flower presentation trial
     var showFlower = {
-        type: jsPsychImageKeyboardResponseMAS2images,
-        stimulusLeft: jsPsych.timelineVariable('leftFile'),
-        stimulusRight: jsPsych.timelineVariable('rightFile'),
-        stimulusL_height: 250, 
-        stimulusL_top: 200,
-        stimulusL_left:-150,
-        stimulusR_height: 250, 
-        stimulusR_top: 200,
-        stimulusR_left:150,
+        type: jsPsychImageKeyboardResponseMAS,
+        stimulus: jsPsych.timelineVariable('imageFile'),
+        stimulus_height: 150, 
+        stimulus_top: 250,
         render_on_canvas: false,  
         choices: ['ArrowLeft', 'ArrowRight'],
         prompt: jsPsych.timelineVariable('prompt'),
@@ -461,53 +497,63 @@ console.log(flower_stimuli);
             data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correctResponse);
        },
         data: {
-            task: 'flower sorting',
-            targetFlowerNum: jsPsych.timelineVariable('targetStimuli'),
-            distractorFlower: jsPsych.timelineVariable('distractorStimuliName'),
+            task: 'robot sorting',
+            targetNum: jsPsych.timelineVariable('targetStimuli'),
             correctResponse: jsPsych.timelineVariable('correctResponse'),
-            targetFlowerName: jsPsych.timelineVariable('targetStimuliName')  
+            targetName: jsPsych.timelineVariable('targetName')  ,
+            leftLabel: jsPsych.timelineVariable('leftLabel'),
+            rightLabel: jsPsych.timelineVariable('rightLabel'),
+            image:  jsPsych.timelineVariable('imageFile')
+
         }
       }
 
       
     //flower feedback trial  
      var feedFlower = {
-      type: jsPsychImageKeyboardResponseMAS2images,
-      stimulusLeft: jsPsych.timelineVariable('leftFile'),
-      stimulusRight: jsPsych.timelineVariable('rightFile'),
-      stimulusL_height: 250, 
-      stimulusL_top: 200,
-      stimulusL_left: -150,
-      stimulusR_height: 250, 
-      stimulusR_top: 200,
-      stimulusR_left: 150,
+      type: jsPsychImageKeyboardResponseMAS,
+      stimulus: jsPsych.timelineVariable('imageFile'),
+      stimulus_height: 150, 
+      stimulus_top: 200,
       render_on_canvas: false,  
       choices: "NO_KEYS",
       trial_duration: 1000,  
       on_start: function(trial) {
         const last_trial = jsPsych.data.get().last(1).values()[0];
         const correct = last_trial.correct;      // true or false
-        const targetName = last_trial.targetFlowerName; // use the same variable you stored in data
+        const targetName = last_trial.targetName; // use the same variable you stored in data
         const correctSide = last_trial.correctResponse; // "ArrowLeft" or "ArrowRight"
+        const leftLabel = last_trial.leftLabel;
+        const rightLabel = last_trial.rightLabel;
 
-        // Hide the incorrect stimulus
-          if(correctSide === "ArrowLeft") {
-            trial.stimulusRight = "";  // remove right image
-          } else {
-            trial.stimulusLeft = "";   // remove left image
-          }
+          if (targetName == leftLabel){
+                trial.stimulus_left = -215;
+
+            }else if (targetName == rightLabel){
+                trial.stimulus_left = 215;
+            }
+
         // Choose feedback text based on correctness
         let feedbackText = correct 
             ? `YES<br>this is a <br><strong>${targetName}</strong>` 
             : `NO<br>this is a <br><strong>${targetName}</strong>`;
-        trial.prompt = `<div style="position: relative; top: -300px; left: 0; text-align: center;">
-              <p style="font-size: 25px;">Which flower is a <br><br><strong>${targetName}</strong>?<p>Press the left or right arrow key</p>
-              <div style="display: flex; gap: 500px; margin-top: 60px;">
-                </div></div>
-              <div style=" position: relative; top: -200px; left: 0px; text-align: center; font-size: 25px;">${feedbackText}</div>`;
+
+        trial.prompt = `<div style="position: relative; top: -200px; left: 0; text-align: center;">
+           <p style="font-size: 25px;">Which type of robot is this?<p>Press the left or right arrow key.</p>
+            <div style="display: flex; gap: 350px; margin-top: 0px;">
+            <p style="font-size: 30px;">`+leftLabel+`</p>
+            <p style="font-size: 30px;">`+rightLabel+`</p></div>
+             </div></div>
+              <div style=" position: relative; top: -250px; left: 0px; text-align: center; font-size: 25px;">${feedbackText}</div>`;
       },
       data: {
-        task: 'flower feedback',
+        task: 'robotfeedback',
+        targetNum: jsPsych.timelineVariable('targetStimuli'),
+        targetName: jsPsych.timelineVariable('targetName')  ,
+        leftLabel: jsPsych.timelineVariable('leftLabel'),
+        rightLabel: jsPsych.timelineVariable('rightLabel'),
+        image:  jsPsych.timelineVariable('imageFile')
+
       }
     };
 
@@ -581,7 +627,7 @@ console.log(flower_stimuli);
 
     var complete1 = {
       type: jsPsychHtmlKeyboardResponse,
-      stimulus: `<p>Great job!</p> You have completed task 1 of 4.
+      stimulus: `<p>Great job!</p> You have completed task 1 of `+numTasks+`.
                 <p>When you are ready, press spacebar to continue to the next task.`,
       choices: " "
     };
@@ -590,7 +636,237 @@ console.log(flower_stimuli);
 
 
 
-/* ---------------------------------- TASK 2: ASSOCIATION RATINGS ---------------------------------------- */
+/* ---------------------------------- TASK 2: 4 item sorting ---------------------------------------- */
+
+
+// Categorization Instructions 
+    var cat_b_instructions = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `<br><strong>Task 2 of `+numTasks+`</strong></br>
+        <p>This task is the same as Task 1, except now all four robot species names will appear on the screen with one robot centered below. 
+
+         <p>If you think the robot is a GORK, press the G key.
+         <br>If you think the robot is a BLIT, press the B key. 
+         <br>If you think the robot is a MUND, press the M key. 
+         <br>If you think the robot is a LEMZ, press the L key. 
+
+        <p>After you respond, you will be told the correct answer.
+
+        <br>This part of the experiment will take about 3 minutes.
+        <br>When you are ready, press the spacebar to begin. </p>`,
+
+       post_trial_gap: 500, 
+        choices: [" "],
+        data: {
+            task: 'instructions',
+        }
+    }; 
+    timeline.push(cat_b_instructions); 
+
+
+// Build all pairs and sequences
+   var numTotalTrialsFlowers = 4;
+
+    let letterList = ["A", "B", "C", "D"]
+    let species = ["GORK", "BLIT", "MUND", "LEMZ"]
+
+
+    const robotMapping = {
+        GORK: {
+            species: "GORK",
+            correctResponse: "G",
+        },
+        BLIT: {
+            species: "BLIT",
+            correctResponse: "B",
+
+        },
+        MUND:{
+            species: "MUND",
+            correctResponse: "M",
+      },
+        LEMZ:{
+          species: "LEMZ",
+            correctResponse: "L",
+      },
+    }
+
+console.log(robotMapping)
+
+   
+let flower_stimuli2 = [];
+
+for (let currentSpecies of species) {
+
+    let targetName = robotMapping[currentSpecies].species
+    let targetResponse  = robotMapping[currentSpecies].correctResponse
+
+    if (targetName == mapping[0]){
+        letter = "A"
+    }else if (targetName == mapping[1]){
+        letter = "B"
+    }else if (targetName == mapping[2]){
+      letter = "C"
+    }else if (targetName == mapping[3]){
+      letter = "D"
+    }
+
+    console.log(letterList)
+    console.log("currentspecies", currentSpecies)
+    console.log("targetName", targetName)
+    console.log("letter", letter)
+
+  flower_stimuli2.push({
+  prompt: `<div style="position: relative; top: -250px; left: 0; text-align: center;">
+           <p style="font-size: 25px;">Which type of robot is this?<p>Press the first letter of the robot's type.</p>
+            <div style="display: flex; gap: 175px; margin-top: 0px;">
+            <p style="font-size: 30px;"><strong>G</strong>ORK</p>
+            <p style="font-size: 30px;"><strong>B</strong>LIT</p>
+             <p style="font-size: 30px;"><strong>M</strong>UND</p>
+              <p style="font-size: 30px;"><strong>L</strong>EMZ</p></div>
+             </div></div>
+         <div style=" position: relative; top: -50px; left: 0px; text-align: center; color:rgb(105,105,105); font-size: 25px;">---<br>---<br>--</div>`,
+     targetName: targetName,
+    correctResponse: targetResponse,
+    imageFile: "img/robots/Robot_S"+whichCondition+""+letter+".png"
+    });
+  }
+  
+
+
+
+
+     
+  //flower presentation trial
+    var showFlower = {
+        type: jsPsychImageKeyboardResponseMAS,
+        stimulus: jsPsych.timelineVariable('imageFile'),
+        stimulus_height: 150, 
+        stimulus_top: 150,
+        render_on_canvas: false,  
+        choices: ['G', "B", "M" , "L"],
+        prompt: jsPsych.timelineVariable('prompt'),
+        on_finish: function(data){
+            data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correctResponse);
+       },
+        data: {
+            task: '4 robot sorting',
+            correctResponse: jsPsych.timelineVariable('correctResponse'),
+            targetName: jsPsych.timelineVariable('targetName')  ,
+            imageFile:  jsPsych.timelineVariable('imageFile')
+
+        }
+      }
+
+      
+    //flower feedback trial  
+     var feedFlower = {
+      type: jsPsychImageKeyboardResponseMAS,
+      stimulus: jsPsych.timelineVariable('imageFile'),
+      stimulus_height: 150, 
+      stimulus_top: 125,
+      render_on_canvas: false,  
+      choices: "NO_KEYS",
+      trial_duration: 1000,  
+      on_start: function(trial) {
+        const last_trial = jsPsych.data.get().last(1).values()[0];
+        const correct = last_trial.correct;      // true or false
+        const targetName = last_trial.targetName; // use the same variable you stored in data
+        const correctSide = last_trial.correctResponse; // "ArrowLeft" or "ArrowRight"
+
+          if (targetName == "GORK"){
+                trial.stimulus_left = -380;
+
+            }else if (targetName == "BLIT"){
+                trial.stimulus_left = -130;
+
+            }else if (targetName == "MUND"){
+                trial.stimulus_left = 115;
+
+            }else if (targetName == "LEMZ"){
+                trial.stimulus_left = 380;
+            }
+
+        // Choose feedback text based on correctness
+        let feedbackText = correct 
+            ? `YES<br>this is a <br><strong>${targetName}</strong>` 
+            : `NO<br>this is a <br><strong>${targetName}</strong>`;
+
+        trial.prompt = `<div style="position: relative; top: -250px; left: 0; text-align: center;">
+           <p style="font-size: 25px;">Which type of robot is this?<p>Press the first letter of the robot's type.</p>
+            <div style="display: flex; gap: 175px; margin-top: 0px;">
+            <p style="font-size: 30px;"><strong>G</strong>ORK</p>
+            <p style="font-size: 30px;"><strong>B</strong>LIT</p>
+             <p style="font-size: 30px;"><strong>M</strong>UND</p>
+              <p style="font-size: 30px;"><strong>L</strong>EMZ</p></div>
+             </div></div>
+              <div style=" position: relative; top: -75px; left: 0px; text-align: center; font-size: 25px;">${feedbackText}</div>`;
+      },
+      data: {
+        task: '4robot feedback',
+        targetName: jsPsych.timelineVariable('targetName')  ,
+        imageFile:  jsPsych.timelineVariable('imageFile')
+
+      }
+    };
+
+
+
+
+   var accuracy_block_flower1 = {
+        type:  jsPsychHtmlKeyboardResponse,
+        stimulus: "<p>You have completed block 1 of 2 for this task.</p>" +
+      "In this next block, your task is the same. However, you will not receive feedback after your response."+
+      "<p>Please try to be as accurate as possible."+
+
+        "<p> Please press the spacebar when you are ready to start the next block. </p>",
+                choices: " "
+    } 
+
+    
+
+  //Block for flower trials
+  var flower_block = {
+    timeline: [fixation, showFlower, feedFlower],
+    timeline_variables: flower_stimuli2,
+    randomize_order: true,
+    repetitions: 3
+  };
+
+
+    //Block for flower trials
+  var flower_block_nofeed = {
+    timeline: [fixation, showFlower],
+    timeline_variables: flower_stimuli2,
+    randomize_order: true,
+    repetitions: 3
+  };
+
+
+  //Block for flower trials
+  var flower_block_Rep = {
+    timeline: [flower_block, accuracy_block_flower1, flower_block_nofeed],// flower_block, flower_block],
+  };
+  timeline.push(flower_block_Rep)
+
+
+
+
+
+    var complete2 = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `<p>Great job!</p> You have completed task 2 of `+numTasks+`.
+                <p>When you are ready, press spacebar to continue to the next task.`,
+      choices: " "
+    };
+
+    timeline.push(complete2); 
+
+
+
+
+
+/* ---------------------------------- TASK 3: ASSOCIATION RATINGS ---------------------------------------- */
 
 
 //Create array of squares for block instructions screen
@@ -639,9 +915,9 @@ console.log(flower_stimuli);
 var preload
     var instrAssoc = {
        type: jsPsychHtmlSliderResponse,    
-      stimulus: `<strong>TASK 2 of `+numTasks+`</strong>
+      stimulus: `<strong>TASK 3 of `+numTasks+`</strong>
         <p>During this task you will be presented with each of the colored squares from the set below, one at a time 
-        <br>You will be asked to rate how much you associate each color with the flower species:</p>
+        <br>You will be asked to rate how much you associate each color with the robot species:</p>
         <p>MUND, BLIT, LEMZ, and GORK</p> 
         <p>You will be asked to rate the association between each color and species on a scale from 'Not at all' to 'Very much' like the one below.
          ${colorRowsHTML}
@@ -651,13 +927,13 @@ var preload
         <div style="position:absolute; right:-2px; width:5px; height:20px; top: 0px;  background:black;"></div>
         </div>`,
         prompt: `To respond, use the mouse to move the slider along the response scale and then click the 'Continue' button to record your response and start the next trial.
-        <br>There will be four blocks of trials, one for each flower species. You will be asked to rate all of the colors for each flower species before going on to the next block.
+        <br>There will be four blocks of trials, one for each robot species. You will be asked to rate all of the colors for each robot species before going on to the next block.
         <p>Before you begin, please look at all the colors above. 
-        <br>Please identify a color that you think is VERY MUCH associated to MUND flowers. Now, identify a color that you think is NOT AT ALL associated to MUND flowers.
-        <br>Now please do the same for the BLIT flowers: identify a color VERY much associated, and one NOT AT ALL associated.
-        <br>And for the LEMZ flowers: identify a color VERY much associated, and one NOT AT ALL associated.
-        <br>And for the GORK flowers: identify a color VERY much associated, and one NOT AT ALL associated.
-        <p>Those colors represent the far ends of the rating scale, such that they would be rated on the far left/right and all other colors would be rated somewhere in-between.
+        <br>Please identify a color that you think is VERY MUCH associated to MUND robots. Now, identify a color that you think is NOT AT ALL associated to MUND robots.
+        <br>Now please do the same for the BLIT robots: identify a color VERY much associated, and one NOT AT ALL associated.
+        <br>And for the LEMZ robots: identify a color VERY much associated, and one NOT AT ALL associated.
+        <br>And for the GORK robots: identify a color VERY much associated, and one NOT AT ALL associated.
+        <p>Those colors represent the far ends of the rating scale.
         <br>The color you associate the least for each species would be rated on the far left of the scale, and the color you associate the most for each species would be rated on the far right of the scale. 
         <br>All other colors would be rated somewhere in-between.
         <br>This task will take about 10 minutes to complete
@@ -693,7 +969,7 @@ let colorSpecies;
       colorSpecies = 0        
        rating_stimuli_blit.push({stimulus: `<div style="position:relative; top: -100px; font-size: 30px;">
               How much do you associate this color with
-              <p><strong>Blit</strong>  flowers?</p></div>
+              <p><strong>Blit</strong>  robots?</p></div>
             <div style="width:100px;height:100px; position: relative; left: 250px; top: -50px; background-color:rgb(`+promptedColorR1[colorNumber]+`,`+promptedColorG1[colorNumber]+`,`+promptedColorB1[colorNumber]+`);"></div>`,
             colorSeq: colorSeq,
             colorNumber: colorNumber,
@@ -709,7 +985,7 @@ let colorSpecies;
       colorSpecies = 1,      
        rating_stimuli_gork.push({stimulus: `<div style="position:relative; top: -100px; font-size: 30px;">
               How much do you associate this color with
-              <p><strong>Gork</strong> flowers?</p></div>
+              <p><strong>Gork</strong> robots?</p></div>
             <div style="width:100px;height:100px; position: relative; left: 250px; top: -50px; background-color:rgb(`+promptedColorR1[colorNumber]+`,`+promptedColorG1[colorNumber]+`,`+promptedColorB1[colorNumber]+`);"></div>`,
             colorSeq: colorSeq,
             colorNumber: colorNumber,
@@ -725,7 +1001,7 @@ let colorSpecies;
       colorSpecies = 2,       
        rating_stimuli_lemz.push({stimulus: `<div style="position:relative; top: -100px; font-size: 30px;">
               How much do you associate this color with
-              <p><strong>Lemz</strong> flowers?</p></div>
+              <p><strong>Lemz</strong> robots?</p></div>
             <div style="width:100px;height:100px; position: relative; left: 250px; top: -50px; background-color:rgb(`+promptedColorR1[colorNumber]+`,`+promptedColorG1[colorNumber]+`,`+promptedColorB1[colorNumber]+`);"></div>`,
             colorSeq: colorSeq,
             colorNumber: colorNumber,
@@ -741,7 +1017,7 @@ let colorSpecies;
       colorSpecies = 3        
        rating_stimuli_mund.push({stimulus: `<div style="position:relative; top: -100px; font-size: 30px;">
               How much do you associate this color with
-              <p><strong>Mund</strong> flowers?</p></div>
+              <p><strong>Mund</strong> robots?</p></div>
             <div style="width:100px;height:100px; position: relative; left: 250px; top: -50px; background-color:rgb(`+promptedColorR1[colorNumber]+`,`+promptedColorG1[colorNumber]+`,`+promptedColorB1[colorNumber]+`);"></div>
               `,
             colorSeq: colorSeq,
@@ -777,7 +1053,7 @@ let colorSpecies;
     //Block Break blit
     var block_break_blit = {
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<div style="font-size: 25px;">In this block, you will be asked to rate your association between each of the below colors and <p><strong>Blit</strong> flowers.
+        stimulus: `<div style="font-size: 25px;">In this block, you will be asked to rate your association between each of the colors and <p><strong>Blit</strong> robots.
           <p>Press the spacebar to continue.</div>`,
         post_trial_gap: 500, 
         response_ends_trial: true,
@@ -790,7 +1066,7 @@ let colorSpecies;
     //Block Break Gork
     var block_break_gork = {
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<div style="font-size: 25px;">In this block, you will be asked to rate your association between each of the below colors and <p><strong>Gork</strong> flowers.
+        stimulus: `<div style="font-size: 25px;">In this block, you will be asked to rate your association between each of the colors and <p><strong>Gork</strong> robots.
                   <p>Press the spacebar to continue.</div>`,
         post_trial_gap: 500, 
         response_ends_trial: true,
@@ -803,7 +1079,7 @@ let colorSpecies;
     //Block Break Lemz
     var block_break_lemz = {
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<div style="font-size: 25px;">In this block, you will be asked to rate your association between each of the below colors and <p><strong>Lemz</strong> flowers.
+        stimulus: `<div style="font-size: 25px;">In this block, you will be asked to rate your association between each of the colors and <p><strong>Lemz</strong> robots.
             <p>Press the spacebar to continue.</div>`,
         post_trial_gap: 500, 
         response_ends_trial: true,
@@ -816,7 +1092,7 @@ let colorSpecies;
       //Block Break mund
     var block_break_mund = {
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<div style="font-size: 25px;">In this block, you will be asked to rate your association between each of the below colors and <p><strong>Mund</strong> flowers.
+        stimulus: `<div style="font-size: 25px;">In this block, you will be asked to rate your association between each of the colors and <p><strong>Mund</strong> robots.
                <p>Press the spacebar to continue.</div>`,
         post_trial_gap: 500, 
         response_ends_trial: true,
@@ -889,20 +1165,20 @@ let colorSpecies;
     timeline.push(complete2); 
 
 
-/* ---------------------------------- TASK 3: FEATURE RATINGS ---------------------------------------- */
+/* ---------------------------------- TASK 4: FEATURE RATINGS ---------------------------------------- */
 
 
 // Define instructions trial 
     var instrFeatAssoc = {
        type: jsPsychHtmlSliderResponse,  
       stimulus: ` <strong>TASK 3 of `+numTasks+`</strong>
-          <p>In this task, you will be asked to reflect on your learning of the flowers during Task 1.
-          <br>On each trial, you will be shown a silhouette of the flowers, such as the one below. 
-          <br>A single arrow will point to one specific feature of the flower, either the petals, the stem, or the center.
+          <p>In this task, you will be asked to reflect on your learning of the robots during Task 1.
+          <br>On each trial, you will be shown a silhouette of the robots, such as the one below. 
+          <br>Arrows will point to a specific feature of the robot, either the body, the legs, or the arms.
            <p>
-                <img src="img/flowers/featInstr.png" style="width: 180px; height: auto;">`,
+                <img src="img/TaskSilhouettes/Task3All.png" style="width: 365px; height: auto; position: relative; left: 6px; ">`,
 
-    prompt: `Your task is to indicate how much that feature helped you sort the flower species during Task 1.
+    prompt: `Your task is to indicate how much that feature helped you sort the robot species during Task 1.
           <br>Please make your response using the slider scale to indicate how helpful the feature was, from 'not at all helpful' to 'very helpful'. 
           <br>After you move the slider, press the 'continue' button to begin the next trial.
           <br>This task will take about 2 minutes to complete
@@ -925,16 +1201,16 @@ let colorSpecies;
 
 // Assign color category
 let petalNames= [`PETALS`, `CENTER`, `STEM`];
-let featureNumberIndex = [0,1,2]
+let featureNumberIndex =  ["Arms", "Body", "Legs"] //[0,1,2]
   
 
-   //define flower stimuli
+   //define robot stimuli
     let rating_stimuli_flower = [];
     for(let featureNumber of featureNumberIndex){
       rating_stimuli_flower.push({stimulus: 
         `<div style="position:relative; font-size: 25px;">
             How helpful/important was this feature during Task 1?
-          <p><img src="img/flowers/feat`+featureNumber+`.png" style="width: 225px; height: auto;">`,
+          <p><img src="img/TaskSilhouettes/Task3`+featureNumber+`.png" style="width: auto; height: 200px;">`,
           colorNumber: featureNumber,
           targetName: petalNames[featureNumber]})
       }
@@ -980,6 +1256,7 @@ let featureNumberIndex = [0,1,2]
     };
 
     timeline.push(complete2); 
+
 
     
 /* ---------------------------------- End of main experiment ---------------------------------------- */

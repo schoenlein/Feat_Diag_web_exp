@@ -34,7 +34,7 @@
 // ---------- UPDATE THESE AS NEEDED------------------//
 
     //General experiment info to update
-    console.log("Updated last: 11/13/v1")
+    console.log("Updated last: 11/13/v2")
 
     var expServer = 1 // 0 = testing mode; 1 = on server 
         console.log("serverMode", expServer)
@@ -49,19 +49,19 @@
     var numTasks = 5;  //Number of experimental tasks (add 1 to include Color vision test)
 
     //CloudResearch completion code 
-    var completion_code = "1DD48A672F";  //Code copied from mTurk Cloud Research Fixed completion code
+    var completion_code = "DF7BE1AEF0";  //Code copied from mTurk Cloud Research Fixed completion code
 
 
      //Debriefing script- presents at very end of experiment. Describes the purpose of the experiment. Statements automatically included about receiving sona credit or entering a code for mTurk HITT. 
     // NOTE: if you have more than one between subjects condition, you MUST describe what the different conditions did/saw. 
     var debriefScript = `<p><strong>Great job! You have finished the experiment.</strong></p>
                 <p>The purpose of this experiment is to examine how colors influence learning about objects.
-                 <p> In task 1, you learned to identify 4 novel flower species that varied in their visual features. 
-                  <br>In task 2, you indicated your associations between different colors and the different flower species. 
-                 <br> Lastly, in task 3, you indicated how helpful different parts of the flowers were for sorting them in task 1. 
-                 <p>Some participants saw flowers in which the petals were unique colors for each species, while the centers and stems shared colors across species.
-                  <br>Other participants saw flowers in which either the centers or stems were the uniquely colored feature. 
-                 <p>We are interested in whether you reported stronger associations in task 2 for colors that you saw on the more diagnostic (unique) features of the flowers.
+                 <p> In tasks 1 and 2, you learned to identify 4 novel robot species that varied in their visual features. 
+                  <br>In task 3, you indicated your associations between different colors and the different robot species. 
+                 <br> Lastly, in task 4, you indicated how helpful different parts of the robots were for sorting them in task 1. 
+                 <p>Some participants saw robots in which the bodies were unique colors for each species, while the arms and legs shared colors across species.
+                  <br>Other participants saw robots in which either the arms or legs were the uniquely colored feature. 
+                 <p>We are interested in whether you reported stronger associations in task 3 for colors that you saw on the more diagnostic (unique) features of the robots.
             <br>This work contributes to a larger body of work aiming to understand how people form associations between colors and concepts from their experiences.`
 
 
@@ -1157,7 +1157,7 @@ let colorSpecies;
 
     var complete2 = {
       type: jsPsychHtmlKeyboardResponse,
-      stimulus: `<p>Great job!</p> You have completed task 2 of 4.
+      stimulus: `<p>Great job!</p> You have completed task 3 of `+numTasks+`.
                 <p>When you are ready, press spacebar to continue to the next task.`,
       choices: " "
     };
@@ -1250,7 +1250,7 @@ let featureNumberIndex =  ["Arms", "Body", "Legs"] //[0,1,2]
 
     var complete2 = {
       type: jsPsychHtmlKeyboardResponse,
-      stimulus: `<p>Great job!</p> You have completed task 3 of 4.
+      stimulus: `<p>Great job!</p> You have completed task 4 of `+numTasks+`.
                 <p>When you are ready, press spacebar to continue to the final task.`,
       choices: " "
     };
